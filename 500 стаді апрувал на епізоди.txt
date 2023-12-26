@@ -1,0 +1,82 @@
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure.
+ ---> Npgsql.NpgsqlException (0x80004005): Exception while reading from stream
+ ---> System.TimeoutException: Timeout during reading attempt
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|211_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(CommandBehavior behavior, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at coremonolith.Repositories.NpgSQL.ICPC2NpgSQLRepository.GetOneAsync(Guid id) in /app/Repositories/NpgSQL/ICPC2NpgSQLRepository.cs:line 68
+   at coremonolith.Repositories.MedicalData.MedicalDataRepository.GetOneAssociatedEpisodeAsync(GetOneAssociatedRequest request) in /app/Repositories/MedicalData/Episodes.cs:line 412
+   at coremonolith.Repositories.MedicalData.MedicalDataRepository.GetOneAssociatedEpisodeAsync(GetOneAssociatedRequest request) in /app/Repositories/MedicalData/Episodes.cs:line 419
+   at coremonolith.Services.Episodes.Service.EpisodeService.GetOneAssociatedAsync(GetOneAssociatedRequest request) in /app/Services/Episodes/Service/EpisodeService.cs:line 503
+   at coremonolith.Services.Episodes.Manager.EpisodeManager.GetOneAssociatedAsync(String userId, GetOneAssociatedRequest request) in /app/Services/Episodes/Manager/EpisodeManager.cs:line 703
+   at coremonolith.Controllers.Ehealth.SummaryController.GetEpisodeSummaryAsync(String patientId) in /app/Controllers/Ehealth/SummaryController.cs:line 109
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at coremonolith.Extensions.Middlewares.Proxy.ProxyMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/Proxy/ProxyMiddleware.cs:line 91
+   at coremonolith.Extensions.Middlewares.Proxy.EhealthProxyMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/Proxy/EhealthProxyMiddleware.cs:line 109
+   at coremonolith.Extensions.Middlewares.Proxy.ProxyMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/Proxy/ProxyMiddleware.cs:line 91
+   at coremonolith.Extensions.Middlewares.Proxy.ProxyMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/Proxy/ProxyMiddleware.cs:line 91
+   at coremonolith.Extensions.Middlewares.Proxy.ProxyMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/Proxy/ProxyMiddleware.cs:line 91
+   at coremonolith.Extensions.Middlewares.SessionAuthentication.SessionAuthenticationMiddleware.Invoke(HttpContext context) in /app/Extensions/Middlewares/SessionAuthentication/SessionAuthenticationMiddleware.cs:line 103
+   at Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler.HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Prometheus.GrpcRequestCountMiddleware.Invoke(HttpContext context)
+   at Prometheus.HttpMetrics.HttpRequestDurationMiddleware.Invoke(HttpContext context)
+   at Prometheus.HttpMetrics.HttpRequestCountMiddleware.Invoke(HttpContext context)
+   at Prometheus.HttpMetrics.HttpInProgressMiddleware.Invoke(HttpContext context)
+   at Helsi.Framework.Utilities.Monitoring.Handshake.HandshakeMiddleware.InvokeAsync(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+
+HEADERS
+=======
+Connection: close
+Host: nginx_bl_corehis
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjgxODg4MkVBMENCNkZDODYxMkZGRDcxNzhGRkQzMUMxQzJGREEyODJSUzI1NiIsInR5cCI6ImF0K2p3dCIsIng1dCI6ImdZaUM2Z3kyX0lZU185Y1hqXzB4d2NMOW9vSSJ9.eyJuYmYiOjE3MDM2MTAxMTEsImV4cCI6MTcwMzYxMzcxMSwiaXNzIjoiaHR0cDovL25naW54X2JsX2NvcmVoaXM6NTAwMCIsImF1ZCI6WyJpYm9zc2FwaSIsImNvcmVhcGkiLCJhZGRyZXNzYXBpIiwidXNlcmFwaSIsImxvZ19hcGkiXSwiY2xpZW50X2lkIjoiaGlzY2xpZW50Iiwic3ViIjoiYmMxNmE0ZDItYzJmMi00ODU2LThkZDMtZGYxZWU3NzI5ZjQ5IiwiYXV0aF90aW1lIjoxNzAzNjEwMTA4LCJpZHAiOiJsb2NhbCIsImp0aSI6IjFGRDcyRDZENzU4OUFCQUZGNzU2Nzc3RUIwNzMxODNBIiwic2lkIjoiQUJDMkVDN0NBQzM4ODNFMzVFMEYwNkFFNDRDQ0E1MTgiLCJpYXQiOjE3MDM2MTAxMTEsInNjb3BlIjpbInVzZXJhcGkiLCJvcGVuaWQiLCJjb3JlYXBpIiwiYWRkcmVzc2FwaSIsImlib3NzYXBpIiwibG9nX2FwaSIsIm9mZmxpbmVfYWNjZXNzIl0sImFtciI6WyJwd2QiXX0.Ot5mVblH0oWcu3reUPJYIsZIuWvwBdBsSfcuQYAzm55ynHV652I8GogZwUFRalJ6AfwZg0exXi-RMKTFPLyPPgcJuiapUxW2sZ2rqKYXbQaHTSCFtJJeavt17uKAv1kntNLojOof9FKIfC5jHjkyVV1Z7tkF-hf8qrzbqJEVlLckOGe4eJnOEKu1dERN4qMRLSbA9ycW6SaoCcars9i8p94etu4XmuLc6OAJMVKb0tyEykf0CTrySfTNt0bB9ot_cG4R27k-IEIAkbcwqFmtsl2_5rCE8iaX30qGKq_bb4P6xB2wn6CIpA_gDpNr-XVicKCeLAb__I4a6Qn5bpiB4e4qPbubF69qRH_1azJOHTsQP0W7bwV8LGKH4BKS34PCd4cfB3VMKstoYd-RiLJt8QGAqjjfytJ-sJjn2UH6VvVvLLk2JeFgMYTDNdT_i68gXPsjns8VEyksiHb5TJIg3y0k23fQHlN4bGn5P79wRx9Z1ZxyF1cuF8sEiJ42pj6-Ow8hzr-LKeuQ7uq_gQLSLxX3FEjgscJLLkRXSUJ-yTBx-urI0FJdA8Oq0mTUTPkvVk02_mbG7v4eaFrQQSOimOaQ0xWOSbrlysdTVXZaV3Q47gd8_3ytPlAGVKm-aH0XzbLDsiBv1L9-carPT98P3a0MFG_Q14zjWtb21g43FJo
+Content-Type: application/json
+Cookie: _ga=GA1.2.1694569467.1701867101; x-browser-id=3c273d9b-4eb1-4f5d-a99b-67d67d97f162; _hjSessionUser_3727138=eyJpZCI6IjUwYjk1NDA2LTc1NTctNTljNi1iZmY2LTg5ZjgzMTU5NDNhOCIsImNyZWF0ZWQiOjE3MDE5NDQ2ODY4NTYsImV4aXN0aW5nIjp0cnVlfQ==; x-version=21; qa103.Helsi.BE.HIS=CfDJ8LBIXWyKUsBEgde7R7D-8t6PggWNwEV5fC4GzT1mjp9h4JZFQto8Ob1bgKKlbXw-a-PGucyvJzLI_PxXqdrZkAdBWCNZGBDsOlyrbQgnX6B_dhZGK0v5oz4P3Z2U8JhouqoucM5S5-DQNnRSw9svaoFOCIJQqhnIFm76mN7L1OwVzNqwzYfbzZfuWdGDziihQJhqLe-6FRLZJFra9ihRt7ZAlhyMnvEagVew0X0i6f_IbDZ6F1HzgsGj0TE9HuuL9T93Bv3GhNIfPCOyxIfrGHQI1SjJCWUDxa97FX7SW3e2400oG3zPCVOxToFMt_5j5HT9DtrZRvHe0x0yRzsG1pfmr3MMVoqaNU66tWe0WotE4Jq2iz520lzK8F0KiML1lbqsNpRzSM0a9kl-ZTQp4ks; reception=%7B%7D; PHPSESSID=1351b58d4fdce3a166e0801dbdaa3065; qa102.Helsi.BE.HIS=CfDJ8J1syhiYoh5KtVCAUhHC5z7PAUxD3Qgs1_PtMoiP2i9GQNtzyC_4LzmJmCqWwthP8RQ1lY_P9R45SWmx-YjzG_483eHy0EtuhRRiXWtKaBTfceXmOqbzU01AENmhJqQKlEHrL3PpTmpxFtIMWdNRy0BoTLCYrduZ7ydnhV1woIgEo5YmsKsIkJYKAeqshgLqXpiFMJDBQQtrazAEyCO9XalSPf-JmYChfxsddWaTklyovy_ocQGGTENoGVjDajDmMNqZzloDQXhztlYK6UJelXEshL5ogLBhl97_P6sI5c2Z6MJ-lX-CReI1J6XaZrP6y0IsEAVHDjczPmih1Ihnh_-JknweUWLeOX_Vr9D9su_IXHoKwvGae7XPBvsqF2q4CyVoXnzTaFPsg8qANzDgFFs; qa3.Helsi.BE.HIS=CfDJ8Oie7WQS64VCjRxDg08t8BfefL3HxC1T8VsaTK-ypsyOlDRmAlqzFUSYOoGDzYDhrqz6RCbVYUBe9bxdvUYuIF10JpGhRRHLF7yjkzUj9jctmjChPmOttCbpBW12jxKm4uhCOtLpLYYllik6yWeBwuN5asFciM2b9PSxR1zANoHZgmCmPPZsJsWMfQ-m3stE1QPH3ItoMfpz4ErjafqEFBgzKi6euQcX_VLiz0ImIM-IaZhNJwdqv73zj3qqhLkOgBv6DMhxFVZ4rOKM1G0VOEOrct4TAeYAv43Pu0VoJ-DGxTxP0Noo7ZhHJXNbhvzL0ADESCqeIBDRyrXh9G_aCyOut9esRiBmfZiyO5vIlucObn538xm2u34VBk6xAn2wNEsQ7MJU1u9AqikK1yZlPu0; _ga_NZ4LE5DDQ3=GS1.2.1702972593.2.1.1702973037.0.0.0; qa6.Helsi.BE.HIS=CfDJ8Be4D-Amz-5Oov6biOIz09j-Dr88Rmlf69iq6HJjaKh4ViwK_srUZkdEstmatdNS6FI7egVXgKC9suyZ4vgmhZnb8KQTiwBJhS8zDBJ08BHX7g8lR-4bGKlJRBJQHwAQecK_nDjg0f1_Gc81qOswUHGklAA4hk5rv8O_EnpDNRD0RqFEtr-aAJUsoj4a2euxvEehh4NXNbm4gZU95kHl-DOaazz0uB0G_ZSiUcFhq_RbHBVtjzZkL2G57ljdwFkJ9O50tFyd_N7JyciTXyNasQUP-GGZAOuF-itRzNszvHqWBPRu-iEcuMy8coMyW0-MeqXgFsdNVhphvfGoEpHI1WCmSosAFxxGaiCttyDQl5VctuOmyPakiB37BG5QOPpMuWhhUgXT_Xzpu5ra_KjkVtQ; _gid=GA1.2.761922582.1703581021; _hjIncludedInSessionSample_3727138=0; _hjSession_3727138=eyJpZCI6IjhjNDExZWNiLWM3ZjctNDdkYy1iOWNiLTYyZWExMWVkYmM3MCIsImMiOjE3MDM2MDYxNDUxOTUsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=1; ajs_user_id=46a694e5-f94e-4388-bca7-1936a2dc814c; ajs_anonymous_id=076482de-af60-4b64-abce-6773f9a0ed6c; Helsi.BE.HIS.SS=CfDJ8KoiVHP3PTpFiGOXmf%2BwzfKAHeHLBw5JVhvVmcn3bH7Ksz45nNGrkyeAWCbwra4zrOt6HMzwww%2F6Z7%2Fl1uavD8%2B8ZWcfjqFJhhe9nMeOr4ap4HVrXU5ZfTG6p9WKBW5oxlpWAPwEFjDDBfTYFS5oEefDe4%2BJMOSjaRGLdpNVeqQJ; study.Helsi.BE.HIS=CfDJ8KoiVHP3PTpFiGOXmf-wzfItmhLgl8wSw4w-qVP2OBA_GOa9lPJ63pBSJCM-z-y_VbYk18rihuYjYTH-iMo2x138YSarFri-6Hh5e758JcJDUondWEKmtUY4IYVBJtlE1F3cgGsGZYJbqfpo5gQ37EBhH6n2iH_PL2TUUcqfuj6XmkZbv2_NGaO_hJLwX_yXkAdl-zZhrylzjei00zVH7Q8IG8xRKkob2a2_pPm8GMPC9fRXvgbaayPRs5XPcUt1TCRAzBjt_IsdGYRWJS4Lc2lNqAFf-3LccyzeUzhq1GipSfD9gT-LcJd55xoVaQ-iDJL6h_UyTaSj26JQx87JBuWpo0xVqEYShom66SjL4jwQsfZFxsspkPo6a9xMUHWpNVvxw-fkyc7s9dU6G1qld9o; x-resource-id=46a694e5-f94e-4388-bca7-1936a2dc814c; receptionPage=%7B%22a458d9f3-cda8-4812-bef5-5ce3eab7b301_2db2ddea-bfd4-493e-ba58-d0f11fd40a8f%22%3A%22471e1ac3-65c2-4f4f-b31c-6972fe4e9b1d%22%2C%22a458d9f3-cda8-4812-bef5-5ce3eab7b301_310299b0-198d-4ec2-866b-9c3ef5fd0b2d%22%3A%22045c4013-0be4-44e2-8876-c1e97a873012%22%2C%2293f33d06-620c-4004-9b2d-d6a9df9d90cc_94513ab3-f898-4340-81b4-5e336c2a839c%22%3A%2248ed0bb4-d7de-4add-b39c-d2f0fd91dfd7%22%2C%2293f33d06-620c-4004-9b2d-d6a9df9d90cc_daeb0b19-7198-45ff-8282-dd46721342a1%22%3A%22dc0c2451-0309-4d47-ab0c-ef7ab8eaf52d%22%2C%22f281ea34-9324-44da-8e88-c36fbb697d97_94513ab3-f898-4340-81b4-5e336c2a839c%22%3A%223276fa99-64da-4003-84fe-eda009736c89%22%2C%2293f33d06-620c-4004-9b2d-d6a9df9d90cc_de2488a8-4579-4fdc-8866-4d68976ba83c%22%3A%22fec36916-4453-4053-94b0-1e6617e5c0d0%22%2C%2246a694e5-f94e-4388-bca7-1936a2dc814c_2db2ddea-bfd4-493e-ba58-d0f11fd40a8f%22%3A%225c5b96b2-19b3-40ed-be55-365d3eeb6c24%22%7D; _csrf=fd16c31aab02fb0eb129c6065a15dac423d399a86740b8029ef7a5127d437997a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22PHFDxX-P5o3OroPuB6CyLFrC2nJTjj4C%22%3B%7D; _gat=1; _ga_4KHDS37XW2=GS1.2.1703606144.76.1.1703610544.0.0.0; inactive=1703612285279
+traceparent: 00-c994eab1313771c82f0b507c89f0686f-6efdfb9bc7996a12-00
+Content-Length: 0
+X-Real-IP: 172.20.1.78
+X-Forwarded-For: 94.153.229.106, 94.153.229.106, 172.20.1.78
+X-Forwarded-Host: _
+X-GUID: 4ab567325897315518aae6fe404fb6b2
+CF-RAY: 83baedf67d035b82-VIE
+X-Forwarded-Proto: https
+CF-Visitor: {"scheme":"https"}
+sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+sec-ch-ua-mobile: ?0
+x-browser-id: 3c273d9b-4eb1-4f5d-a99b-67d67d97f162
+x-resource-id: 46a694e5-f94e-4388-bca7-1936a2dc814c
+callback-state: /emk/page/2db2ddea-bfd4-493e-ba58-d0f11fd40a8f/approvalAccessList
+sec-ch-ua-platform: "macOS"
+sec-fetch-site: same-origin
+sec-fetch-mode: cors
+sec-fetch-dest: empty
+CF-Connecting-IP: 94.153.229.106
+CDN-Loop: cloudflare
+CF-IPCountry: UA
